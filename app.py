@@ -3,7 +3,9 @@ import requests
 from deepface import DeepFace
 import tempfile
 import os
+import sys
 
+st.write("Python version:", sys.version)
 st.set_page_config(page_title="Retrackt: Trace and Report Non Consensual Images on Reddit", layout="centered")
 
 st.title("Find out if your photograph has been reposted on Reddit without your consent")
