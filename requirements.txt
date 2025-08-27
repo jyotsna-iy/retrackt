@@ -1,3 +1,4 @@
+numpy==1.23.5
 streamlit==1.19.0
 deepface==0.0.79
 tensorflow==2.10.1
@@ -6,6 +7,8 @@ protobuf==3.19.6
 opencv-python-headless
 requests
 altair==4.2.0
+vega_datasets==0.9.0
+
 
 
 
