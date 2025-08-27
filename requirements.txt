@@ -5,7 +5,8 @@ keras==2.10.0
 protobuf==3.19.6
 opencv-python-headless
 requests
-altair
+altair==4.2.0
+
 
 
 
