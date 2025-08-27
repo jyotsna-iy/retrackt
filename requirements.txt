@@ -1,10 +1,11 @@
-streamlit==1.25.0
+streamlit==1.23.1
 deepface==0.0.79
 tensorflow==2.10.1
 keras==2.10.0
-protobuf==3.20.1
+protobuf==3.19.6
 opencv-python-headless
 requests
+
 
 
 
