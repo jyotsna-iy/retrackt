@@ -1,0 +1,4 @@
+streamlit
+deepface
+requests
+opencv-python-headless
