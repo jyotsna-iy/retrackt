@@ -5,9 +5,9 @@ import tempfile
 import os
 import sys
 
-st.write("Python version:", sys.version)
-st.set_page_config(page_title="Retrackt: Trace and Report Non Consensual Images on Reddit", layout="centered")
 
+st.set_page_config(page_title="Retrackt: Trace and Report Non Consensual Images on Reddit", layout="centered")
+st.write("Python version:", sys.version)
 st.title("Find out if your photograph has been reposted on Reddit without your consent")
 
 # 1. Instagram image URL
