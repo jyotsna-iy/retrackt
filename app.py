@@ -5,17 +5,24 @@ import tempfile
 import os
 import sys
 import time
+import praw
+
 
 st.set_page_config(page_title="Retrackt: Trace and Report Non Consensual Images on Reddit", layout="centered")
 st.write("Python version:", sys.version)
 st.title("Find out if your photograph has been reposted on Reddit without your consent")
 
+reddit = praw.Reddit(
+    client_id="IJ9SJnf2Rlib8p6LnYnO8Q",          
+    client_secret="5TFcCxmJSL4owpFtYmTaeDXL4GFwPw",   
+    user_agent="RetracktScript by u/jeremiahdoe"  
+)
 
 insta_url = st.text_input("Enter Instagram Image URL (direct .jpg/.png preferred):")
 insta_username = st.text_input("Enter your Instagram username:")
 full_name = st.text_input("Enter your full name:")
-
 uploaded_file = st.file_uploader("Or upload an image", type=["jpg", "jpeg", "png"])
+subreddit = st.text_input("Enter subreddit name to scan:", "BeautifulIndianWomen")
 
 def download_image(url):
     try:
@@ -28,46 +35,29 @@ def download_image(url):
     except:
         return None
 
-def get_all_reddit_images(subreddit="BeautifulIndianWomen"):
+
+def get_all_reddit_images(subreddit_name="BeautifulIndianWomen", limit=200):
     images = []
-    before = None
-    batch_size = 100
-    total_fetched = 0
 
-    while True:
-        url = f"https://api.pushshift.io/reddit/submission/search/?subreddit={subreddit}&size={batch_size}&sort=desc"
-        if before:
-            url += f"&before={before}"
-
-        response = requests.get(url)
-        if response.status_code != 200:
-            st.warning(f"Pushshift API returned status {response.status_code}. Stopping fetch.")
-            break
-
-        data = response.json().get('data', [])
-        if not data:
-            break  
-
-        for post in data:
-            post_url = post.get('url', '')
-            if post_url.endswith((".jpg", ".jpeg", ".png")):
+    try:
+        subreddit = reddit.subreddit(subreddit_name)
+        for submission in subreddit.new(limit=limit):
+            if submission.url.lower().endswith((".jpg", ".jpeg", ".png")):
                 images.append({
-                    "title": post.get('title', ''),
-                    "url": post_url,
-                    "permalink": f"https://reddit.com{post.get('permalink', '')}"
+                    "title": submission.title,
+                    "url": submission.url,
+                    "permalink": f"https://reddit.com{submission.permalink}"
                 })
-                total_fetched += 1
-
-        before = data[-1]['created_utc']
-
-        st.write(f"Fetched {total_fetched} posts so far...")
-        time.sleep(1)  
-
+    except Exception as e:
+        st.error(f"Failed to fetch Reddit posts: {e}")
+    
     return images
+
 
 if st.button("Find Matches") and (insta_url or uploaded_file):
     with st.spinner("Matching... this may take a while"):
 
+        # --- Get input image path ---
         if insta_url:
             insta_img_path = download_image(insta_url)
         elif uploaded_file:
@@ -79,7 +69,8 @@ if st.button("Find Matches") and (insta_url or uploaded_file):
             st.error("No image provided")
             st.stop()
 
-        reddit_posts = get_all_reddit_images()
+
+        reddit_posts = get_all_reddit_images(subreddit_name=subreddit)
 
         if not reddit_posts:
             st.warning("No image posts found in the subreddit.")
@@ -103,7 +94,7 @@ if st.button("Find Matches") and (insta_url or uploaded_file):
                         "title": post["title"]
                     })
 
-                os.remove(reddit_img_path)  
+                os.remove(reddit_img_path)
 
                 if (idx + 1) % 50 == 0:
                     st.write(f"Processed {idx + 1} images...")
@@ -111,7 +102,8 @@ if st.button("Find Matches") and (insta_url or uploaded_file):
             except Exception as e:
                 continue
 
-        os.remove(insta_img_path)  
+        os.remove(insta_img_path)
+
 
         if matched:
             matched = sorted(matched, key=lambda x: x["distance"])[:3]
