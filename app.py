@@ -36,7 +36,7 @@ def download_image(url):
         return None
 
 
-def get_all_reddit_images(subreddit_name="BeautifulIndianWomen", limit=200):
+def get_all_reddit_images(subreddit_name="BeautifulIndianWomen", limit=1000):
     images = []
 
     try:
@@ -57,7 +57,6 @@ def get_all_reddit_images(subreddit_name="BeautifulIndianWomen", limit=200):
 if st.button("Find Matches") and (insta_url or uploaded_file):
     with st.spinner("Matching... this may take a while"):
 
-        # --- Get input image path ---
         if insta_url:
             insta_img_path = download_image(insta_url)
         elif uploaded_file:
