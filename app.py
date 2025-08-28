@@ -13,9 +13,9 @@ st.write("Python version:", sys.version)
 st.title("Find out if your photograph has been reposted on Reddit without your consent")
 
 reddit = praw.Reddit(
-    client_id="IJ9SJnf2Rlib8p6LnYnO8Q",          
-    client_secret="5TFcCxmJSL4owpFtYmTaeDXL4GFwPw",   
-    user_agent="RetracktScript by u/jeremiahdoe"  
+    client_id="f2FzYrvaaYz4UFZpr2e0Yg",          
+    client_secret="-3d6VLPEchC7zQ8YoCFNNmYaAhiJOg",   
+    user_agent="Retrackt by u/jeremiahdoe"  
 )
 
 insta_url = st.text_input("Enter Instagram Image URL (direct .jpg/.png preferred):")
