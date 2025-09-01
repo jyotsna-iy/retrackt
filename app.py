@@ -57,7 +57,7 @@ def download_image(url):
         return None
 
 
-def get_all_reddit_images(subreddit_name="BeautifulIndianWomen", limit=1000):
+def get_all_reddit_images(subreddit_name="BeautifulIndianWomen2", limit=1000):
     images = []
 
     try:
@@ -90,43 +90,96 @@ def get_all_reddit_images(subreddit_name="BeautifulIndianWomen", limit=1000):
 
 
 if st.button("Find Matches") and (insta_url or uploaded_file):
-    with st.spinner("Matching... this may take a while"):
+    # Create containers for dynamic updates
+    status_container = st.container()
+    progress_container = st.container()
+    
+    with status_container:
+        status_text = st.empty()
+        progress_bar = st.empty()
+        details_text = st.empty()
+        cancel_button = st.empty()
         
+    # Track processing state
+    start_time = time.time()
+    
+    try:
         # Import DeepFace lazily when actually needed
-        st.info("Loading face recognition model (this may take a moment on first run)...")
+        status_text.info("🔄 Loading face recognition model (this may take a moment on first run)...")
         try:
             from deepface import DeepFace
-            st.success("Face recognition model loaded successfully!")
+            status_text.success("✅ Face recognition model loaded successfully!")
+            time.sleep(1)  # Brief pause to show success message
         except Exception as e:
-            st.error(f"Failed to load face recognition model: {e}")
+            status_text.error(f"❌ Failed to load face recognition model: {e}")
             st.stop()
 
+        # Prepare the reference image
+        status_text.info("📸 Preparing your reference image...")
         if insta_url:
             insta_img_path = download_image(insta_url)
+            if not insta_img_path:
+                status_text.error("❌ Failed to download image from Instagram URL")
+                st.stop()
         elif uploaded_file:
             temp_file = tempfile.NamedTemporaryFile(delete=False)
             temp_file.write(uploaded_file.read())
             temp_file.close()
             insta_img_path = temp_file.name
         else:
-            st.error("No image provided")
+            status_text.error("❌ No image provided")
             st.stop()
 
-
+        # Fetch Reddit posts
+        status_text.info(f"🔍 Fetching image posts from r/{subreddit}...")
         reddit_posts = get_all_reddit_images(subreddit_name=subreddit)
 
         if not reddit_posts:
-            st.warning("No image posts found in the subreddit.")
+            status_text.warning("⚠️ No image posts found in the subreddit.")
             st.stop()
 
+        total_posts = len(reddit_posts)
+        status_text.success(f"✅ Found {total_posts} image posts to analyze")
+        
+        # Initialize progress tracking
         matched = []
+        processed = 0
+        failed_downloads = 0
+        
+        # Show initial progress bar
+        progress_bar.progress(0)
+        details_text.text(f"Starting analysis of {total_posts} images...")
 
+        # Process each Reddit post
         for idx, post in enumerate(reddit_posts):
             try:
+                # Update progress
+                progress = (idx + 1) / total_posts
+                progress_bar.progress(progress)
+                
+                # Calculate speed and ETA
+                elapsed_time = time.time() - start_time
+                if idx > 0:
+                    avg_time_per_image = elapsed_time / idx
+                    remaining_images = total_posts - idx
+                    eta_seconds = avg_time_per_image * remaining_images
+                    eta_text = f"ETA: {int(eta_seconds//60)}m {int(eta_seconds%60)}s"
+                    speed_text = f"Speed: {60/avg_time_per_image:.1f} images/min"
+                else:
+                    eta_text = "Calculating ETA..."
+                    speed_text = "Calculating speed..."
+                
+                # Update status
+                status_text.info(f"🔄 Analyzing image {idx + 1}/{total_posts} | {len(matched)} matches found")
+                details_text.text(f"📊 {speed_text} | {eta_text} | ❌ {failed_downloads} failed downloads")
+                
+                # Download Reddit image
                 reddit_img_path = download_image(post["url"])
                 if not reddit_img_path:
+                    failed_downloads += 1
                     continue
 
+                # Perform face verification
                 result = DeepFace.verify(insta_img_path, reddit_img_path, enforce_detection=False)
 
                 if result['verified']:
@@ -136,21 +189,29 @@ if st.button("Find Matches") and (insta_url or uploaded_file):
                         "distance": result["distance"],
                         "title": post["title"]
                     })
+                    # Brief celebration for new match
+                    status_text.success(f"🎯 MATCH FOUND! ({len(matched)} total) | Processing {idx + 1}/{total_posts}")
 
+                # Clean up downloaded image
                 os.remove(reddit_img_path)
-
-                if (idx + 1) % 50 == 0:
-                    st.write(f"Processed {idx + 1} images...")
+                processed += 1
 
             except Exception as e:
                 continue
 
+        # Final progress update
+        progress_bar.progress(1.0)
+        total_time = time.time() - start_time
+        status_text.success(f"✅ Analysis complete! Processed {processed}/{total_posts} images in {int(total_time//60)}m {int(total_time%60)}s")
+        details_text.text(f"📊 Final stats: {len(matched)} matches found | {failed_downloads} failed downloads")
+
+        # Clean up reference image
         os.remove(insta_img_path)
-
-
+        
+        # Display results
         if matched:
             matched = sorted(matched, key=lambda x: x["distance"])[:3]
-            st.success(f"Found top {len(matched)} matches:")
+            st.success(f"🎯 Found top {len(matched)} matches:")
 
             for match in matched:
                 st.markdown(f"**[{match['title']}]({match['reddit_url']})**")
@@ -158,4 +219,12 @@ if st.button("Find Matches") and (insta_url or uploaded_file):
                 st.markdown(f"**Similarity Distance**: `{match['distance']:.3f}`")
                 st.markdown("---")
         else:
-            st.warning("No matches found.")
+            st.info("No matches found. Your image appears to be unique on this subreddit! 🎉")
+        
+    except Exception as e:
+        status_text.error(f"❌ An error occurred: {e}")
+        if 'insta_img_path' in locals():
+            try:
+                os.remove(insta_img_path)
+            except:
+                pass

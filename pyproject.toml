@@ -12,6 +12,7 @@ dependencies = [
     "opencv-python-headless",
     "requests",
     "praw",
+    "ipdb",
     "python-dotenv",
 ]
 
