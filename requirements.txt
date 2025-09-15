@@ -1,0 +1,8 @@
+streamlit>=1.49.1
+deepface>=0.0.95
+tensorflow>=2.10.1,<2.21.0
+tf-keras
+opencv-python-headless
+requests
+praw
+python-dotenv

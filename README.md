@@ -81,14 +81,23 @@ The app is particularly useful for identifying non-consensual image sharing and 
 
 The app will be available at `http://localhost:8501`
 
-### Production Deployment
+### Streamlit Cloud Deployment
 
-This app is configured for deployment on Render.com using the included `render.yaml` configuration:
+This app is configured for easy deployment on Streamlit Cloud:
 
-  ```bash
-  # Automatic deployment via Render.com
-  # Uses: streamlit run app.py --server.port=10000 --server.address=0.0.0.0
-  ```
+1. Ensure your GitHub repository includes `requirements.txt` (created for dependency management).
+2. Go to [share.streamlit.io](https://share.streamlit.io) and sign in with GitHub.
+3. Click "New app" and select your repository and branch (main or master).
+4. Set the main file path to `app.py`.
+5. In the app configuration, add the following secrets by going to app settings > Secrets (get these from https://www.reddit.com/prefs/apps):
+   - `REDDIT_CLIENT_ID`: Your Reddit app client ID
+   - `REDDIT_CLIENT_SECRET`: Your Reddit app client secret
+   - `REDDIT_USER_AGENT`: Your Reddit app user agent (e.g., "Retrackt by u/yourusername")
+6. Click "Deploy"!
+
+The app will be accessible at a public URL provided by Streamlit Cloud. Deployment may take time due to heavy dependencies like TensorFlow.
+
+For deployment on other platforms (e.g., Render), keep the included `render.yaml`.
 
 ## Usage
 

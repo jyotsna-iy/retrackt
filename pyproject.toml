@@ -12,9 +12,11 @@ dependencies = [
     "opencv-python-headless",
     "requests",
     "praw",
-    "ipdb",
     "python-dotenv",
 ]
+
+[tool.poetry]
+package-mode = false
 
 [tool.uv]
 dev-dependencies = []
