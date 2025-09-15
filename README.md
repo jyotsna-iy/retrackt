@@ -14,7 +14,7 @@ The main focus of this project is to help users trace non-consensual reposting o
 
 ## Demo
 
-[Watch the demo](demo.mp4)
+[Watch the demo](https://drive.google.com/file/d/1vFd6Up9WkXY1N7NuhWW-kC198dtzssTt/view?usp=sharing)
 
 ## Limitations 
 
