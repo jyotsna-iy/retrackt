@@ -12,6 +12,10 @@ Retrackt allows users to:
 
 The app is particularly useful for identifying non-consensual image sharing and helping users track unauthorized use of their photos.
 
+## Demo
+
+[Watch the demo](demo.mp4)
+
 ## Features
 
 - **Image Upload**: Support for JPG, JPEG, and PNG files
