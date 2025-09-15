@@ -55,6 +55,10 @@ Yung-Hsuan Wu,
 Igor Shilov 
 
 
+This is an open source project, to contribute please fill in this form - https://cryptpad.fr/form/#/2/form/view/B07+Irs-BJf3yJYn96hI3Gr4LtaEmuym9o5C18goiYE/
+
+Have user feedback? Get in touch - jyotsna.iy@gmail.com
+
 ## Reading/Resource List 
 1. https://www.washingtonpost.com/investigations/2025/09/08/meta-research-child-safety-virtual-reality/
 2. https://www.404media.co/reddit-issuing-formal-legal-demands-against-researchers-who-conducted-secret-ai-experiment-on-users/
