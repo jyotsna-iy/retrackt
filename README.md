@@ -14,10 +14,7 @@ The app is particularly useful for identifying non-consensual image sharing and 
 
 ## Demo
 
-<video width="100%" controls>
-  <source src="demo.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+[Watch the demo](demo.mp4)
 
 ## Features
 
