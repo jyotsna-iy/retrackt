@@ -1,6 +1,6 @@
 # Retrackt
 
-Retrackt is a streamlit web application that allows users to trace if their photographs have been reposted on Reddit. 
+Retrackt is a streamlit web application that allows users to discover if their photographs have been reposted on Reddit. 
 
 ## Current focus
 
