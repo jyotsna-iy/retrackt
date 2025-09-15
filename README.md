@@ -40,18 +40,18 @@ Thank you to the following folks for contributing to Retrackt!
 
 Technical Contributors: 
 
-John Sandall
-Yash Srivastava 
-Praveen Selvaraj 
-Preethi Prakash 
+John Sandall,
+Yash Srivastava, 
+Praveen Selvaraj, 
+Preethi Prakash, 
 
 Other contributors:
 
-Lewis Westbury 
-Matt Stempeck 
-Hannah O'Rourke 
-Six Silberman 
-Yung Hsuan Wu 
+Lewis Westbury, 
+Matt Stempeck, 
+Hannah O'Rourke, 
+Six Silberman, 
+Yung-Hsuan Wu, 
 Igor Shilov 
 
 
