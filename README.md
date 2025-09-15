@@ -60,8 +60,8 @@ Igor Shilov
 2. https://www.404media.co/reddit-issuing-formal-legal-demands-against-researchers-who-conducted-secret-ai-experiment-on-users/
 3. https://networkcultures.org/thedigitalgutmensch/2025/03/17/considerations-for-bystanders-of-online-harm/
 4. https://coppelganger.lav.io/
-5. pushshift.io
-6. parse.bot
+5. https://pushshift.io/signup
+6. https://www.parse.bot/
 7. https://stopncii.org/?lang=en-gb
 8. https://paglen.studio/2020/04/29/imagenet-roulette/
 9. https://opensourcesecurity.io/2025/08-oss-one-person/
