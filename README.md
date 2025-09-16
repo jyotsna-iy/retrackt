@@ -55,7 +55,7 @@ Yung-Hsuan Wu,
 Igor Shilov 
 
 
-This is an open source project, to contribute please fill in this form - https://cryptpad.fr/form/#/2/form/view/B07+Irs-BJf3yJYn96hI3Gr4LtaEmuym9o5C18goiYE/
+This is an open source project, to contribute please fill out this form - https://cryptpad.fr/form/#/2/form/view/B07+Irs-BJf3yJYn96hI3Gr4LtaEmuym9o5C18goiYE/
 
 Have user feedback? Get in touch - jyotsna.iy@gmail.com
 
