@@ -73,6 +73,8 @@ Have user feedback? Get in touch - jyotsna.iy@gmail.com
 8. https://paglen.studio/2020/04/29/imagenet-roulette/
 9. https://opensourcesecurity.io/2025/08-oss-one-person/
 
+ (Research report coming soon!)  
+
 
 
 
