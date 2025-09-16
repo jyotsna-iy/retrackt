@@ -20,7 +20,7 @@ The main focus of this project is to help users trace non-consensual reposting o
 
 - Reddit API allows us to scan the most recent/latest 1000 posts (rate limit of 1000)
 - This project is restricted to Reddit as of now, with plans to expand to other social media platforms
-- We request you to upload an image instead of pasting an Instagram URL of your preferred post
+- We request you to upload an image instead of pasting an Instagram URL of a (public) post
 
 ## Roadmap
 
