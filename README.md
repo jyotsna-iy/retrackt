@@ -29,10 +29,13 @@ The main focus of this project is to help users trace non-consensual reposting o
 - Expand similarity matching display and make the project accessible (or live) via https://retrackt.streamlit.app/ (Due Sep 30)
 
 ### Not Started
+Phase 1 (Tracking/Discover Mechanism)
 - Refactor Image Fetching Script (Due Oct 31 )
 - Automate Daily Fetching (Due Oct 31)
 - Build FASTAPI Service (Due Oct 31)
 - Feedback (Round 1) (and further iteration) (Due Oct 2)
+
+Phase 2 (Reporting Mechanism) 
 
 ## Contributors 
 
